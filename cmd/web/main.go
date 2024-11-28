@@ -17,6 +17,7 @@ import (
 )
 
 type application struct {
+	users          *models.UserModel
 	logger         *slog.Logger
 	snippets       *models.SnippetModel
 	templateCache  map[string]*template.Template
@@ -52,6 +53,7 @@ func main() {
 	sessionManager.Lifetime = 12 * time.Hour
 
 	app := &application{
+		users:          &models.UserModel{DB: db},
 		logger:         logger,
 		snippets:       &models.SnippetModel{DB: db},
 		templateCache:  templateCache,
