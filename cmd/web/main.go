@@ -17,9 +17,9 @@ import (
 )
 
 type application struct {
-	users          *models.UserModel
+	users          models.UserModelInterface
 	logger         *slog.Logger
-	snippets       *models.SnippetModel
+	snippets       models.SnippetModelInterface // note use of interface so that we can mock it for tests
 	templateCache  map[string]*template.Template
 	formDecoder    *form.Decoder
 	sessionManager *scs.SessionManager

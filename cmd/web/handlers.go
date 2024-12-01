@@ -43,7 +43,6 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// the 'default' data (which for now is just the current year), and add the
 	// snippets slice to it.
 	data := app.newTemplateData(r)
-	//fmt.Println("%v", data)
 	data.Snippets = snippets
 
 	// Pass the data to the render() helper as normal.
@@ -51,13 +50,16 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
+
 	id, err := strconv.Atoi(r.PathValue("id"))
+
 	if err != nil || id < 1 {
 		http.NotFound(w, r)
 		return
 	}
 
 	snippet, err := app.snippets.Get(id)
+
 	if err != nil {
 		if errors.Is(err, models.ErrNoRecord) {
 			http.NotFound(w, r)
